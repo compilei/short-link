@@ -61,7 +61,7 @@ export default {
           this.icon = "fa-link";
 
           setTimeout(() => {
-            window.location.replace("https://www.galera.bet");
+            window.location.replace(process.env.VUE_APP_URL_ROOT_REDIRECT);
           }, 2000);
         } else {
           this.loading = false;
