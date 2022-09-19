@@ -20,6 +20,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.$route.params.id);
     this.$swal
       .fire({
         toast: true,
@@ -55,6 +56,13 @@ export default {
 
           setTimeout(() => {
             window.location.replace(url.link);
+          }, 2000);
+        } else if (this.$route.params.id === undefined) {
+          this.loading = false;
+          this.icon = "fa-link";
+
+          setTimeout(() => {
+            window.location.replace("https://www.galera.bet");
           }, 2000);
         } else {
           this.loading = false;
