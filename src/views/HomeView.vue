@@ -20,7 +20,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route.params.id);
     this.$swal
       .fire({
         toast: true,
