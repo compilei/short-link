@@ -1,0 +1,57 @@
+on:
+  push:
+    branches:
+      - main
+name: 🚀 Deploy Short Link Production
+defaults:
+  run:
+    working-directory: ./
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: 🔫 Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: ⛏ Build Project
+        run: |
+          yarn
+          yarn build --mode production
+
+      - name: ✔ List output files
+        run: ls
+
+      - name: 🌎 Sync files to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: glr.ai
+          username: short@glr.ai
+          password: ${{ secrets.PASSFTP_PROD }}
+          local-dir: ./dist/
+          server-dir: public_html/
+          exclude: |
+            **/.well-known/**
+            **/cgi-bin/**
+            .ftpquota
+            .htaccess
+          dry-run: false
+
+      - name: 📤 Send Message Telegram Deploy
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Commit criado por: ${{ github.actor }}!
+            O que foi feito: ${{ github.event.commits[0].message }}
+
+            Ambiente: Produção Short Links
+
+            Veja mais detalhes em: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+          disable_web_page_preview: true
