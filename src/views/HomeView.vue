@@ -52,17 +52,11 @@ export default {
         if (url) {
           this.loading = false;
           this.icon = "fa-link";
-
-          setTimeout(() => {
-            window.location.replace(url.link);
-          }, 2000);
+          window.location.replace(url.link);
         } else if (this.$route.params.id === undefined) {
           this.loading = false;
           this.icon = "fa-link";
-
-          setTimeout(() => {
-            window.location.replace(process.env.VUE_APP_URL_ROOT_REDIRECT);
-          }, 2000);
+          window.location.replace(process.env.VUE_APP_URL_ROOT_REDIRECT);
         } else {
           this.loading = false;
           this.icon = "fa-triangle-exclamation";
