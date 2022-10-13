@@ -25,11 +25,15 @@ export default {
         toast: true,
         text: "Aguarde um momento...",
         icon: "info",
+        iconHtml: `<img src='${require("../assets/images/logo_icon.png")}'>`,
         position: "center",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
         showConfirmButton: false,
+        customClass: {
+          icon: "no-border",
+        },
       })
       .then(({ isConfirmed }) => {
         if (isConfirmed) {
@@ -112,6 +116,11 @@ export default {
 }
 
 .icon {
+  display: none;
   margin: 20px;
+}
+
+.no-border {
+  border: 0 !important;
 }
 </style>
