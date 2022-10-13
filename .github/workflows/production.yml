@@ -34,7 +34,7 @@ jobs:
           username: short@glr.ai
           password: ${{ secrets.PASSFTP_PROD }}
           local-dir: ./dist/
-          server-dir: public_html/
+          server-dir: /
           exclude: |
             **/.well-known/**
             **/cgi-bin/**
